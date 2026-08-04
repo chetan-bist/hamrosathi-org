@@ -206,7 +206,7 @@ export default function Home() {
           <a className="text-on-surface-variant  hover:text-primary  font-body-sm text-body-sm" href="#">Help Center</a>
         </div>
         <div className="text-on-surface-variant  font-body-sm text-body-sm opacity-100">
-          © 2024 HamroSathi. Secure & Verified Services.
+          © 2026 HamroSathi. Secure & Verified Services.
         </div>
       </footer>
     </>
