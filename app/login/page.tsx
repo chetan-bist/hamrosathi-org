@@ -46,7 +46,7 @@ export default function LoginPage() {
       if (userType === "client") {
         router.push("/dashboard/client");
       } else if (userType === "pro") {
-        router.push("/dashboard/pro");
+        router.push("/dashboard/worker");
       } else if (userType === "admin") {
         router.push("/dashboard/admin");
       } else {

@@ -6,14 +6,14 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
-export default function ClientDashboardLayout({
+export default function WorkerDashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [userName, setUserName] = useState("John Doe");
+  const [userName, setUserName] = useState("Ramesh Worker");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function ClientDashboardLayout({
         const { data, error } = await supabase
           .from("profiles")
           .select("*")
-          .eq("user_type", "client")
+          .eq("user_type", "worker")
           .limit(1)
           .single();
 
@@ -30,7 +30,7 @@ export default function ClientDashboardLayout({
           setUserName(data.full_name);
         }
       } catch (err) {
-        console.error("Error fetching profile:", err);
+        console.error("Error fetching worker profile:", err);
       } finally {
         setLoading(false);
       }
@@ -50,7 +50,7 @@ export default function ClientDashboardLayout({
         <div className="flex items-center gap-8 h-full">
           <div className="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
             <span className="material-symbols-outlined" style={{ fontVariationSettings: '"FILL" 1' }}>
-              handshake
+              handyman
             </span>{" "}
             HamroSathi
           </div>
@@ -60,7 +60,7 @@ export default function ClientDashboardLayout({
             </span>
             <input
               className="w-full pl-12 pr-4 py-2 bg-surface-container-low border-none rounded-full focus:ring-2 focus:ring-primary text-on-surface focus:bg-surface-container-lowest transition-colors h-10 outline-none placeholder:text-on-surface-variant font-body-sm text-body-sm"
-              placeholder="Search for services, pros..."
+              placeholder="Search tasks, clients..."
               type="text"
             />
           </div>
@@ -71,25 +71,24 @@ export default function ClientDashboardLayout({
             <span className="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
           </button>
           
-          {/* Top Bar Messages Button Connected */}
           <button 
-            onClick={() => router.push("/dashboard/client/messages")}
+            onClick={() => router.push("/dashboard/worker/messages")}
             aria-label="Messages" 
             className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors relative cursor-pointer ${
-              pathname === "/dashboard/client/messages"
+              pathname === "/dashboard/worker/messages"
                 ? "bg-primary-container text-on-primary-container"
                 : "text-on-surface-variant hover:bg-surface-container-low"
             }`}
           >
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/client/messages" ? '"FILL" 1' : '"FILL" 0' }}>chat</span>
+            <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/worker/messages" ? '"FILL" 1' : '"FILL" 0' }}>chat</span>
           </button>
 
           <button aria-label="User Profile" className="ml-2 w-10 h-10 rounded-full overflow-hidden border border-outline-variant focus:ring-2 focus:ring-primary focus:outline-none transition-all cursor-pointer active:scale-95 relative">
             <Image
               fill
               className="object-cover"
-              alt="User Profile"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXmE-V_xC46yBw5HpLWpn6DTuPYI7x9tc_2n5ZKteDzNbOOguzIvJ1pWErq0ofPKa9xzETxkw3eC00eXskE09eDjDPkYjsSKn9LniH1FHNmjyr5scKESZtLv2MW1XeVUKYSKPS72n74Hpx4LT88r2S0rThi1Cmf0CMKnMwUmH1ibT5CwmtNAq5p_rEYeq1V7C9rfoboWowu6BgBnrknaScTRbeKVTF4MPfA1rUJqIMas5tUyxaODvL"
+              alt="Worker Profile"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbVj8cjFiJWi_24JXLVbvyd6W4QhXP47sDtyOZsDR5BwdxuJnVGwmUdfE0-KHmaLLwYrGoXFI4ePpaXbCv-AudbIqYln0zL51X4Z5rHdYcSdX2RFu0oiVDOr-Mc79YZTH0sPbac1sPEvzvq6y_I21x1ake7WsFsavzdI4KyBJknS-zFEzG9RiM2YA3rG_WV9i1jEU1Ob4ESp-2pol5YQ2SkHGVdiRW9VMc76XbJDInUyKs5mAO4Jgi"
             />
           </button>
         </nav>
@@ -104,7 +103,7 @@ export default function ClientDashboardLayout({
                 fill
                 className="object-cover"
                 alt="Profile picture"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKbuPyodlGnTibENLqcLmg0AWwSRElt_7bBL7fV5X3Ai2c8JtmtozCyvAjNgMxfnDF4-dP0Mfo-_JEGDrx9LYEEtAbG4xz6JNAUfRgTMWXFs8DqXOfX4iiuGTFPpjrDOh2MDcZQlJ-d0u7rxf4aeW_JoEUMontAatTjpXN2pp2csKuuPD11PdVObvUQMu_SXdhePZAMfIecQ7apnYn9C1l-ZzCqc7_7kvMTNvkmfoLrqwWEKSR3c3R"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbVj8cjFiJWi_24JXLVbvyd6W4QhXP47sDtyOZsDR5BwdxuJnVGwmUdfE0-KHmaLLwYrGoXFI4ePpaXbCv-AudbIqYln0zL51X4Z5rHdYcSdX2RFu0oiVDOr-Mc79YZTH0sPbac1sPEvzvq6y_I21x1ake7WsFsavzdI4KyBJknS-zFEzG9RiM2YA3rG_WV9i1jEU1Ob4ESp-2pol5YQ2SkHGVdiRW9VMc76XbJDInUyKs5mAO4Jgi"
               />
             </div>
             <h2 className="font-headline-sm text-headline-sm text-on-surface text-center">
@@ -114,20 +113,20 @@ export default function ClientDashboardLayout({
               <span className="material-symbols-outlined text-[14px] text-secondary" style={{ fontVariationSettings: '"FILL" 1' }}>
                 verified
               </span>
-              Verified Client
+              Verified Provider
             </p>
           </div>
 
           <nav className="flex-1 p-4 flex flex-col gap-1 overflow-y-auto">
             <Link 
               className={`flex items-center gap-4 rounded-lg px-4 py-2 font-label-md text-label-md transition-all duration-200 ease-in-out ${
-                pathname === "/dashboard/client" 
+                pathname === "/dashboard/worker" 
                   ? "bg-primary-container text-on-primary-container" 
                   : "text-on-surface-variant hover:bg-surface-container-high"
               }`} 
-              href="/dashboard/client"
+              href="/dashboard/worker"
             >
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/client" ? '"FILL" 1' : '"FILL" 0' }}>
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/worker" ? '"FILL" 1' : '"FILL" 0' }}>
                 dashboard
               </span>
               Dashboard
@@ -135,28 +134,55 @@ export default function ClientDashboardLayout({
 
             <Link 
               className={`flex items-center gap-4 rounded-lg px-4 py-2 font-label-md text-label-md transition-all duration-200 ease-in-out ${
-                pathname === "/dashboard/client/bookings" 
+                pathname === "/dashboard/worker/jobs" 
                   ? "bg-primary-container text-on-primary-container" 
                   : "text-on-surface-variant hover:bg-surface-container-high"
               }`} 
-              href="/dashboard/client/bookings"
+              href="/dashboard/worker/jobs"
             >
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/client/bookings" ? '"FILL" 1' : '"FILL" 0' }}>
-                event_note
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/worker/jobs" ? '"FILL" 1' : '"FILL" 0' }}>
+                work_history
               </span>
-              Bookings
+              Job Requests
             </Link>
 
-            {/* Messages Link Connected */}
             <Link 
               className={`flex items-center gap-4 rounded-lg px-4 py-2 font-label-md text-label-md transition-all duration-200 ease-in-out ${
-                pathname === "/dashboard/client/messages" 
+                pathname === "/dashboard/worker/tasks" 
                   ? "bg-primary-container text-on-primary-container" 
                   : "text-on-surface-variant hover:bg-surface-container-high"
               }`} 
-              href="/dashboard/client/messages"
+              href="/dashboard/worker/tasks"
             >
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/client/messages" ? '"FILL" 1' : '"FILL" 0' }}>
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/worker/tasks" ? '"FILL" 1' : '"FILL" 0' }}>
+                task_alt
+              </span>
+              Active Tasks
+            </Link>
+
+            <Link 
+              className={`flex items-center gap-4 rounded-lg px-4 py-2 font-label-md text-label-md transition-all duration-200 ease-in-out ${
+                pathname === "/dashboard/worker/earnings" 
+                  ? "bg-primary-container text-on-primary-container" 
+                  : "text-on-surface-variant hover:bg-surface-container-high"
+              }`} 
+              href="/dashboard/worker/earnings"
+            >
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/worker/earnings" ? '"FILL" 1' : '"FILL" 0' }}>
+                payments
+              </span>
+              Earnings
+            </Link>
+
+            <Link 
+              className={`flex items-center gap-4 rounded-lg px-4 py-2 font-label-md text-label-md transition-all duration-200 ease-in-out ${
+                pathname === "/dashboard/worker/messages" 
+                  ? "bg-primary-container text-on-primary-container" 
+                  : "text-on-surface-variant hover:bg-surface-container-high"
+              }`} 
+              href="/dashboard/worker/messages"
+            >
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/worker/messages" ? '"FILL" 1' : '"FILL" 0' }}>
                 chat
               </span>
               Messages
@@ -164,56 +190,28 @@ export default function ClientDashboardLayout({
 
             <Link 
               className={`flex items-center gap-4 rounded-lg px-4 py-2 font-label-md text-label-md transition-all duration-200 ease-in-out ${
-                pathname === "/dashboard/client/discover" 
+                pathname === "/dashboard/worker/profile" 
                   ? "bg-primary-container text-on-primary-container" 
                   : "text-on-surface-variant hover:bg-surface-container-high"
               }`} 
-              href="/dashboard/client/discover"
+              href="/dashboard/worker/profile"
             >
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/client/discover" ? '"FILL" 1' : '"FILL" 0' }}>
-                explore
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/worker/profile" ? '"FILL" 1' : '"FILL" 0' }}>
+                account_circle
               </span>
-              Discover
-            </Link>
-
-            <Link 
-              className={`flex items-center gap-4 rounded-lg px-4 py-2 font-label-md text-label-md transition-all duration-200 ease-in-out ${
-                pathname === "/dashboard/client/support" 
-                  ? "bg-primary-container text-on-primary-container" 
-                  : "text-on-surface-variant hover:bg-surface-container-high"
-              }`} 
-              href="/dashboard/client/support"
-            >
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/client/support" ? '"FILL" 1' : '"FILL" 0' }}>
-                support_agent
-              </span>
-              Support
-            </Link>
-
-            <Link 
-              className={`flex items-center gap-4 rounded-lg px-4 py-2 font-label-md text-label-md transition-all duration-200 ease-in-out ${
-                pathname === "/register-worker" 
-                  ? "bg-primary-container text-on-primary-container" 
-                  : "text-on-surface-variant hover:bg-surface-container-high"
-              }`} 
-              href="/register-worker"
-            >
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/register-worker" ? '"FILL" 1' : '"FILL" 0' }}>
-                badge
-              </span>
-              Register as Worker
+              Profile
             </Link>
 
             <div className="mt-auto border-t border-outline-variant/50 pt-2 flex flex-col gap-1">
               <Link 
                 className={`flex items-center gap-4 rounded-lg px-4 py-2 font-label-md text-label-md transition-all duration-200 ease-in-out ${
-                  pathname === "/dashboard/client/settings" 
+                  pathname === "/dashboard/worker/settings" 
                     ? "bg-primary-container text-on-primary-container" 
                     : "text-on-surface-variant hover:bg-surface-container-high"
                 }`} 
-                href="/dashboard/client/settings"
+                href="/dashboard/worker/settings"
               >
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/client/settings" ? '"FILL" 1' : '"FILL" 0' }}>
+                <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/dashboard/worker/settings" ? '"FILL" 1' : '"FILL" 0' }}>
                   settings
                 </span>
                 Settings
@@ -228,21 +226,21 @@ export default function ClientDashboardLayout({
 
           <div className="p-4">
             <button className="w-full bg-primary text-on-primary font-label-md text-label-md py-2 px-4 rounded-lg shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
-              <span className="material-symbols-outlined">add</span>
-              Book New Service
+              <span className="material-symbols-outlined">bolt</span>
+              View New Leads
             </button>
           </div>
         </aside>
 
-        {/* Dynamic Main Content Area - Messages page loads here */}
-        <main className={`flex-1 overflow-x-hidden ${pathname === "/dashboard/client/messages" ? "p-0" : "p-4 md:p-10"}`}>
+        {/* Dynamic Main Content Area */}
+        <main className={`flex-1 overflow-x-hidden ${pathname === "/dashboard/worker/messages" ? "p-0" : "p-4 md:p-10"}`}>
           {children}
         </main>
       </div>
 
       {/* Footer */}
       <footer className="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm w-full py-8 px-10 flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto border-t border-outline-variant mt-auto">
-        <div className="font-headline-sm text-headline-sm text-primary mb-4 md:mb-0">HamroSathi</div>
+        <div className="font-headline-sm text-headline-sm text-primary mb-4 md:mb-0">HamroSathi Worker</div>
         <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-4 md:mb-0">
           <Link className="text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Privacy Policy</Link>
           <Link className="text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Terms of Service</Link>
