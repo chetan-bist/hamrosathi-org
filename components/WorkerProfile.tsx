@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 
 interface WorkerProfileProps {
   onBack?: () => void;
@@ -9,6 +11,8 @@ interface WorkerProfileProps {
 
 export default function WorkerProfile({ onBack }: WorkerProfileProps) {
   const [activeTab, setActiveTab] = useState<"about" | "services" | "portfolio" | "reviews">("about");
+   const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className="w-full max-w-[1280px] mx-auto px-4 md:px-10 py-8 md:py-12 flex flex-col gap-8">
@@ -72,10 +76,23 @@ export default function WorkerProfile({ onBack }: WorkerProfileProps) {
                 <span className="material-symbols-outlined">chat</span>
                 Message
               </button>
-              <button className="flex-1 md:flex-none bg-secondary text-on-secondary font-label-md px-8 py-3 rounded-lg hover:shadow-md transition-shadow flex items-center justify-center gap-2 cursor-pointer">
+              {/* <button className="flex-1 md:flex-none bg-secondary text-on-secondary font-label-md px-8 py-3 rounded-lg hover:shadow-md transition-shadow flex items-center justify-center gap-2 cursor-pointer">
                 <span className="material-symbols-outlined">calendar_month</span>
                 Book Now
-              </button>
+              </button> */}
+              <Link 
+                  className={`flex items-center justify-center gap-2 rounded-lg px-8 py-3 font-label-md text-label-md transition-all duration-200 ease-in-out cursor-pointer ${
+                    pathname === "/bookingform" 
+                      ? "bg-secondary text-on-secondary shadow-md" 
+                      : "bg-secondary text-on-secondary hover:shadow-md"
+                  }`} 
+                  href="/bookingform"
+                >
+                  <span className="material-symbols-outlined" style={{ fontVariationSettings: pathname === "/bookingform" ? '"FILL" 1' : '"FILL" 0' }}>
+                    calendar_month
+                  </span>
+                  Book Now
+                </Link>
             </div>
           </div>
         </div>
